@@ -2,9 +2,9 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
-SOURCES += main.cpp \
-    perceptron.cpp
+SOURCES += src/main.cpp \
+    src/perceptron.cpp
 
 HEADERS += \
-    perceptron.h
+    src/perceptron.h
 
