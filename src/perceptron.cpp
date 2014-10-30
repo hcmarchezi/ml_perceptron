@@ -5,26 +5,33 @@
 Perceptron::Perceptron()
 {
     _learningRate = 0.1;
-    for (size_t index=0; index < _weights.size(); index++)
-    {
-        _weights[index] = 0.0;
-    }
+
 }
 
 Perceptron::~Perceptron()
 {
-
 }
 
-void Perceptron::startTraining(std::vector< std::vector<double> > x,double bias, std::vector<double> desired)
+void Perceptron::startTraining(std::vector< std::vector<double> > x,std::vector<double> desired)
 {
-    _bias = bias;
-    for (size_t j=0; j < x.size(); j++)
+    _weights.resize(x[0].size());
+    for (size_t index=0; index < _weights.size(); index++)
     {
-        double actual = output(x[j]);
-        for (size_t i=0; i < _weights.size(); i++)
+        _weights[index] = 0.0;
+        std::cout << "_weights[" << index << "]=" << _weights[index] << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    for (size_t i=0; i < x.size(); i++)
+    {
+        double actual = output(x[i]);
+        double error = desired[i]-actual;
+        for (size_t j=0; j < x[0].size(); j++)
         {
-            _weights[i] = _weights[i] + _learningRate * (desired[j]-actual) * x[i][j];
+            std::cout << "_weights[" << j << "]=" << _weights[j] << "+" << _learningRate << "*" << error << "*" << x[i][j] << std::endl;
+            _weights[j] = _weights[j] + _learningRate * error * x[i][j];
+            std::cout << "_weights[" << j << "]=" << _weights[j] << std::endl;
         }
     }
 }
@@ -36,6 +43,5 @@ double Perceptron::output(std::vector<double> input)
     {
         output += _weights[index]*input[index];
     }
-    output += _bias;
     return output;
 }
