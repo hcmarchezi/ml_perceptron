@@ -6,7 +6,8 @@
 int main()
 {
     std::cout << "---------------------------------------------------" << std::endl;
-    std::cout << " Perceptron training for AND operation " << std::endl;
+    std::cout << " Perceptron training for OR operation " << std::endl;
+    std::cout << "---------------------------------------------------" << std::endl;
 
     // Training for AND operation
     std::vector< std::vector<double> > x;
@@ -19,24 +20,15 @@ int main()
     std::vector<double> desired;
     desired.resize(4);
 
-    x[0][0]= 1.0; x[0][1]=-1.0; x[0][2]=-1.0; desired[0]=-1.0;
-    x[1][0]= 1.0; x[1][1]= 1.0; x[1][2]=-1.0; desired[1]=-1.0;
-    x[2][0]= 1.0; x[2][1]=-1.0; x[2][2]= 1.0; desired[2]=-1.0;
+    x[0][0]= 1.0; x[0][1]= 0.0; x[0][2]= 0.0; desired[0]= 0.0;
+    x[1][0]= 1.0; x[1][1]= 1.0; x[1][2]= 0.0; desired[1]= 1.0;
+    x[2][0]= 1.0; x[2][1]= 0.0; x[2][2]= 1.0; desired[2]= 1.0;
     x[3][0]= 1.0; x[3][1]= 1.0; x[3][2]= 1.0; desired[3]= 1.0;
-
-    for(size_t i=0; i< x.size(); i++)
-    {
-        for(size_t j=0; j < x[0].size();j++)
-        {
-            std::cout << "x[" << i << "," << j << "]=" << x[i][j] << " ";
-        }
-        std::cout << "y[" << i << "]=" << desired[i] << std::endl;
-    }
 
     Perceptron perceptron;
     perceptron.startTraining(x,desired);
 
-    std::cout << "---------------------------------------------------" << std::endl;
+    std::cout << "---output------------------------------------------------" << std::endl;
     std::cout << " Results: " << std::endl;
 
     for (size_t i=0; i < x.size(); i++)
@@ -45,13 +37,14 @@ int main()
         for (size_t j=0; j < x[0].size(); j++)
         {
             std::cout << x[i][j] << ", ";
-        }
-        double output = perceptron.output(x[i]);
-        std::cout << ": " << output << std::endl;
+        }        
+        std::cout << "output: " << perceptron.output(x[i]) << " ";
+        std::cout << "linear: " << perceptron.linearOutput(x[i]) << " ";
+        std::cout << std::endl;
     }
 
     std::cout << "---------------------------------------------------" << std::endl;
-    std::cout << "---------------------------------------------------" << std::endl;
+
     return 0;
 }
 
